@@ -1,0 +1,6 @@
+.container {
+  justify-content: center;
+  max-width: 90rem;
+  padding: 0 1rem;
+  margin: 3rem auto 6rem;
+}

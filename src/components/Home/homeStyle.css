@@ -1,0 +1,25 @@
+@import url(https://fonts.googleapis.com/css?family=Varela+Round);
+
+$color-one: #1F2124;
+$color-two: #383A3F;
+$color-three: #F68657;
+$color-four: #F6B352;
+
+.header{
+	justify-self: center;
+	font-size: 15pt;
+}
+.row{
+	width: 100%;
+}
+
+.button{
+	padding: 15px 32px;
+  	text-align: center;
+  	text-decoration: none;
+ 	cursor: pointer;
+	font-size: 24px;
+	background-color: #e7e7e7; color: black;
+        border: 1px solid black;
+	margin-right: 8px;
+}

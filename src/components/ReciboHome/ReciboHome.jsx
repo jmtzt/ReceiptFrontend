@@ -1,0 +1,52 @@
+import React, { useState, useEffect } from "react";
+import Select from "react-select";
+import axios from "axios";
+import "./recibohome.css";
+
+export default function ReciboHome(props) {
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [emps, setEmps] = useState([]);
+  const [benefs, setBen] = useState([]);
+
+  useEffect(() => {
+    axios
+      .all([
+        axios.get("http://localhost:3001/empresas"),
+        axios.get("http://localhost:3001/beneficiarios"),
+      ])
+      .then(
+        (responseArr) => {
+          setIsLoaded(true);
+          setEmps(responseArr[0].data);
+          setBen(responseArr[1].data);
+        },
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      );
+  }, []);
+
+  function setEmpOpt() {
+    return emps.map(({ NOME }) => ({ label: NOME, value: NOME }));
+  }
+
+  function setBenOpt() {
+    return benefs.map(({ Nome }) => ({ label: Nome, value: Nome }));
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  } else if (!isLoaded) {
+    return <h1>Carregando...</h1>;
+  } else {
+    return (
+      <div className="ReciboHomeMainDiv">
+        <Select options={setEmpOpt()} />
+        <Select options={setBenOpt()} />
+      </div>
+    );
+  }
+}
+
