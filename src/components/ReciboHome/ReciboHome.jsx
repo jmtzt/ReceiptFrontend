@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
+import DayPickerInput from "react-day-picker/DayPickerInput";
+import "react-day-picker/lib/style.css";
 import axios from "axios";
 import "./recibohome.css";
 
 export default function ReciboHome(props) {
+  const [startDate, setStartDate] = useState(new Date());
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [emps, setEmps] = useState([]);
@@ -43,6 +46,7 @@ export default function ReciboHome(props) {
   } else {
     return (
       <div className="ReciboHomeMainDiv">
+        <DayPickerInput onDayChange={(day) => setStartDate(day)} />
         <Select options={setEmpOpt()} />
         <Select options={setBenOpt()} />
       </div>
