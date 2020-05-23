@@ -4,6 +4,7 @@ import DayPickerInput from "react-day-picker/DayPickerInput";
 import "react-day-picker/lib/style.css";
 import axios from "axios";
 import "./recibohome.css";
+import { getToken } from "../../services/auth";
 
 export default function ReciboHome(props) {
   const [startDate, setStartDate] = useState(new Date());
@@ -11,12 +12,17 @@ export default function ReciboHome(props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [emps, setEmps] = useState([]);
   const [benefs, setBen] = useState([]);
-
   useEffect(() => {
     axios
       .all([
-        axios.get("http://localhost:3001/empresas"),
-        axios.get("http://localhost:3001/beneficiarios"),
+        axios.get("http://localhost:3001/empresas", {
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+          },
+        }),
+        axios.get("http://localhost:3001/beneficiarios", {
+          headers: { Authorization: `Bearer ${getToken()}` },
+        }),
       ])
       .then(
         (responseArr) => {
@@ -53,4 +59,3 @@ export default function ReciboHome(props) {
     );
   }
 }
-

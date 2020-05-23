@@ -1,6 +1,7 @@
 import React from "react";
 import axios, { post } from "axios";
 import styles from "./simplereactfileupload.module.css";
+import { getToken } from "../../services/auth";
 
 class SimpleReactFileUpload extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class SimpleReactFileUpload extends React.Component {
   onFormSubmit(e) {
     e.preventDefault(); // Stop form submit
     this.fileUpload(this.state.file).then((response) => {
+      console.log(response);
       var responseData = Object.values(response.data);
       this.props.passChildData(responseData);
     });
@@ -28,11 +30,13 @@ class SimpleReactFileUpload extends React.Component {
 
   fileUpload(file) {
     const url = "http://localhost:3001/comprovantes/" + this.props.comprType;
+
     const formData = new FormData();
     formData.append("file", file);
     const config = {
       headers: {
         "content-type": "multipart/form-data",
+        Authorization: `Bearer ${getToken()}`,
       },
     };
     return post(url, formData, config);

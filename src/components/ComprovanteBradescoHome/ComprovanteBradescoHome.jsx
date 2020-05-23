@@ -3,7 +3,6 @@ import Select from "react-select";
 import ReactToPrint from "react-to-print";
 import "../ComprovanteBradescoHome/comprovantehome.module.css";
 import Comprovantes from "../ComprovantesBradesco/Comprovantes";
-import pageStyles from "../pageStyle.js";
 import SimpleReactFileUpload from "../Upload/SimpleReactFileUpload";
 
 export default function ComprovanteBradescoHome(props) {

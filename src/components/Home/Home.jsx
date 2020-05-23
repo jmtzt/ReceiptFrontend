@@ -1,26 +1,33 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText,
-} from "reactstrap";
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from "react-router-dom";
+import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
 import ComprovanteBradescoHome from "../ComprovanteBradescoHome/ComprovanteBradescoHome";
 import ComprovanteBBHome from "../ComprovanteBBHome/ComprovanteBBHome";
 import ChequeHome from "../ChequeHome/ChequeHome";
 import ReciboHome from "../ReciboHome/ReciboHome";
 import "./homeStyle.css";
+import { isAuthenticated } from "../../services/auth";
 
 function Home() {
+  const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route
+      {...rest}
+      render={(props) =>
+        isAuthenticated() ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to={{ pathname: "/", state: { from: props.location } }} />
+        )
+      }
+    />
+  );
+
   return (
     <div className="Home">
       <Router>
@@ -50,25 +57,28 @@ function Home() {
                 <NavLink>Recibo Padrao</NavLink>
               </Link>
             </NavItem>
+            <NavItem>
+              <NavLink href="/">Sair</NavLink>
+            </NavItem>
           </Nav>
         </Navbar>
 
         <Switch>
-          <Route path="/Comprovantes/Bradesco">
+          <PrivateRoute path="/Comprovantes/Bradesco">
             <ComprovanteBradescoHome />
-          </Route>
+          </PrivateRoute>
 
-          <Route path="/Comprovantes/BB">
+          <PrivateRoute path="/Comprovantes/BB">
             <ComprovanteBBHome />
-          </Route>
+          </PrivateRoute>
 
-          <Route path="/Cheque">
+          <PrivateRoute path="/Cheque">
             <ChequeHome />
-          </Route>
+          </PrivateRoute>
 
-          <Route path="/ReciboPadrao">
+          <PrivateRoute path="/ReciboPadrao">
             <ReciboHome />
-          </Route>
+          </PrivateRoute>
         </Switch>
       </Router>
     </div>
