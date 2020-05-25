@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./comprovantesbb.css";
+//import "./comprovantesbb.css";
+import { Table } from "reactstrap";
 
 class ComprovantesBB extends React.Component {
   constructor(props) {

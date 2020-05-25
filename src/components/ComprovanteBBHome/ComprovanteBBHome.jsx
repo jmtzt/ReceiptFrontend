@@ -1,8 +1,9 @@
 import React, { useRef, useState } from "react";
 import Select from "react-select";
 import ReactToPrint from "react-to-print";
-import "./comprovantebb.css";
+//import "./comprovantebb.css";
 import ComprovantesBB from "../ComprovantesBB/ComprovantesBB";
+import ComprovantesBBTable from "../ComprovantesBB/ComprovantesBBTable";
 import SimpleReactFileUpload from "../Upload/SimpleReactFileUpload";
 
 export default function ComprovanteBBHome(props) {
@@ -40,17 +41,17 @@ export default function ComprovanteBBHome(props) {
       />
       {uploadClick && (
         <div className="printArea">
-          <ReactToPrint
-            trigger={() => (
-              <button className="printButton">Imprimir Comprovantes</button>
-            )}
-            content={() => componentRef.current}
-            copyStyles={false}
-            pageStyle="@media print{@page{position:absolute!important;width:297mm;height:210mm;margin:10mm 0 9mm 8mm!important}.comprovantes{display:inline-block;margin:0}.outsideDiv{display:inline-block;position:relative;box-shadow:none;transition:none;max-width:63mm;width:63mm;height:47.2mm;margin-top:0;margin-left:0;margin-bottom:0!important;margin-right:2mm}.insideDiv{position:relative;width:62mm;max-width:62mm;float:left;overflow-wrap:break-word;margin-left:1mm;margin-block-start:0!important;margin-block-end:0!important;margin-inline-end:0;padding:0;font-size:7.4pt}}.break{display:none}"
-          />
-          <ComprovantesBB compr={compr} ref={componentRef} />
+          <ComprovantesBBTable compr={compr} ref={componentRef} />
         </div>
       )}
     </div>
   );
 }
+
+//<ReactToPrint
+//trigger={() => (
+//<button className="printButton">Imprimir Comprovantes</button>
+//)}
+//content={() => componentRef.current}
+//copyStyles={false}
+///>
